@@ -1,7 +1,7 @@
 package gradle_spring5_chap11.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +15,7 @@ import gradle_spring5_chap11.service.MemberRegisterService;
 @RequestMapping("/register")
 public class RegisterController {
 
+	@Autowired
 	private MemberRegisterService memberRegisterService;
 
 	@RequestMapping("/step1")
@@ -33,11 +34,11 @@ public class RegisterController {
 		}
 	*/
 	@PostMapping("/step2")
-	public String handleStep2(@RequestParam(value = "agree", defaultValue = "false") Boolean agree, Model model) {
+	public String handleStep2(@RequestParam(value = "agree", defaultValue = "false") Boolean agree,
+			RegisterRequest registerRequest) {
 		if (!agree) {
 			return "/register/step1";
 		}
-		model.addAttribute("registerRequest", new RegisterRequest());
 		return "/register/step2";
 	}
 
@@ -55,6 +56,11 @@ public class RegisterController {
 			return "/register/step2";
 		}
 
+	}
+
+	@GetMapping("/step3")
+	public String handleStep3Get() {
+		return "redirect:/register/step1";
 	}
 
 }

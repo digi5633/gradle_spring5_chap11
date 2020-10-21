@@ -13,13 +13,13 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
-// @EnableTransactionManagement
 public class ContextDataSource {
 
 	@Bean
 	public DataSource dataSource() {
 
 		HikariDataSource dataSource = null;
+		
 		try {
 			Properties prop = Resources.getResourceAsProperties("application.properties");
 			HikariConfig cfg = new HikariConfig(prop);
@@ -31,10 +31,5 @@ public class ContextDataSource {
 		}
 		return dataSource;
 	}
-	/*
-		@Bean
-		public PlatformTransactionManager transactionManager() {
-			return new DataSourceTransactionManager(dataSource());
-		}
-	*/
+	
 }

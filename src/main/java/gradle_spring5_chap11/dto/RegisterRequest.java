@@ -12,6 +12,7 @@ public class RegisterRequest {
 	}
 
 	public RegisterRequest(String email, String password, String confirmPassword, String name) {
+		super();
 		this.email = email;
 		this.password = password;
 		this.confirmPassword = confirmPassword;
@@ -52,12 +53,6 @@ public class RegisterRequest {
 
 	public boolean isPasswordEqualToConfirmPassword() {
 		return password.equals(confirmPassword);
-	}
-
-	@Override
-	public String toString() {
-		return "RegisterRequest [email=" + email + ", password=" + password + ", confirmPassword=" + confirmPassword
-				+ ", name=" + name + "]";
 	}
 
 }
