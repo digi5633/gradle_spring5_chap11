@@ -13,7 +13,7 @@ public class Member {
 	private LocalDateTime registerDateTime;
 
 	public Member() {
-
+		super();
 	}
 
 	public Member(String email, String password, String name, LocalDateTime registerDateTime) {

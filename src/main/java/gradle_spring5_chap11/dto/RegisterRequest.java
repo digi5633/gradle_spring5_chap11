@@ -9,11 +9,9 @@ public class RegisterRequest {
 
 	public RegisterRequest() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public RegisterRequest(String email, String password, String confirmPassword, String name) {
-		super();
 		this.email = email;
 		this.password = password;
 		this.confirmPassword = confirmPassword;
