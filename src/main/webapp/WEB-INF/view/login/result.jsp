@@ -8,6 +8,14 @@
 	</head>
 	
 	<body>
-		
+		${login.loginType}
+		<br>
+		${login.jobCode}
+		<br>
+		${login.tool}
+		<br>
+		[${login.favoriteOs}]
+		<br>
+		[${login.likeOs}]
 	</body>
 </html>
