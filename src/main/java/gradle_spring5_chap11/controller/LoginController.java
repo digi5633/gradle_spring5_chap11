@@ -1,29 +1,33 @@
 package gradle_spring5_chap11.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import gradle_spring5_chap11.dto.Code;
-import gradle_spring5_chap11.dto.Login;
+import gradle_spring5_chap11.dto.AuthInfo;
+import gradle_spring5_chap11.dto.LoginCommand;
+import gradle_spring5_chap11.exception.WrongIdPasswordException;
+import gradle_spring5_chap11.service.AuthService;
 
 @Controller
+@RequestMapping("/login")
 public class LoginController {
 
-	@GetMapping("/login")
+	/*@GetMapping("/login")
 	public String form(Login login) {
 		return "login/form";
 	}
-
+	
 	@PostMapping("/result")
 	public String result(@ModelAttribute("login") Login login) {
 		return "login/result";
 	}
-
+	
 	@ModelAttribute("loginTypes")
 	public List<String> getLoginTypes() {
 		List<String> loginTypes = new ArrayList<>();
@@ -32,7 +36,7 @@ public class LoginController {
 		loginTypes.add("헤드헌터회원");
 		return loginTypes;
 	}
-
+	
 	@ModelAttribute("jobCodes")
 	public List<Code> getJobCodes() {
 		List<Code> jobCodes = new ArrayList<>();
@@ -41,7 +45,7 @@ public class LoginController {
 		jobCodes.add(new Code("C", "관리자"));
 		return jobCodes;
 	}
-
+	
 	@ModelAttribute("tools")
 	public List<String> getTools() {
 		List<String> tools = new ArrayList<>();
@@ -71,6 +75,32 @@ public class LoginController {
 		likeOs.add("칼리리눅스");
 		likeOs.add("우분투");
 		return likeOs;
+	}*/
+
+	@Autowired
+	private AuthService authService;
+
+	@GetMapping
+	public String form(LoginCommand loginCommand) {
+		return "login/loginForm";
+	}
+
+	@PostMapping
+	public String submit(LoginCommand loginCommand, Errors errors, HttpSession session) {
+		
+		new LoginCommandValidator().validate(loginCommand, errors);
+		
+		if (errors.hasErrors())
+			return "login/loginForm";
+		try {
+			AuthInfo authInfo = authService.authenicate(loginCommand.getEmail(), loginCommand.getPassword());
+			session.setAttribute("authInfo", authInfo);
+			return "login/loginSuccess";
+		} catch (WrongIdPasswordException ex) {
+			errors.reject("idPasswordNotMatching");
+			return "login/loginForm";
+		}
+
 	}
 
 }

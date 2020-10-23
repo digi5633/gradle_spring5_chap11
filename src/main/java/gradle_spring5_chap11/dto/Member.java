@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import gradle_spring5_chap11.exception.WrongIdPasswordException;
 
 public class Member {
-
 	private Long id;
 	private String email;
 	private String password;
@@ -77,6 +76,10 @@ public class Member {
 	public String toString() {
 		return "Member [id=" + id + ", email=" + email + ", password=" + password + ", name=" + name
 				+ ", registerDateTime=" + registerDateTime + "]";
+	}
+
+	public boolean matchPassword(String password) {
+		return this.password.equals(password);
 	}
 
 }

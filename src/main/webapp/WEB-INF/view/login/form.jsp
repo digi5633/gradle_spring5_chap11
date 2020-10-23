@@ -41,9 +41,6 @@
 			<form:checkbox items="${likeOsNames}" path="likeOs" value="O4" label="칼리리눅스"/>
 			<form:checkbox items="${likeOsNames}" path="likeOs" value="O5" label="우분투"/>
 		</p>
-
-
-
 		<input type="submit" value="결과보기">
 	</form:form>
 	</body>
