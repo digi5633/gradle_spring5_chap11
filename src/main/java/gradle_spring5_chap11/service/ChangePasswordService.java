@@ -11,13 +11,9 @@ import gradle_spring5_chap11.exception.MemberNotFoundException;
 
 @Component
 public class ChangePasswordService {
-
-	private MemberDao memberDao;
-
+	
 	@Autowired
-	public void setMemberDao(MemberDao memberDao) {
-		this.memberDao = memberDao;
-	}
+	private MemberDao memberDao;
 
 	@Transactional
 	public void changePassword(String email, String oldPwd, String newPwd) {

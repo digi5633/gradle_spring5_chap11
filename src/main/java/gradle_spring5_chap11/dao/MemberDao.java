@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -19,13 +20,15 @@ import gradle_spring5_chap11.dto.Member;
 
 @Component
 public class MemberDao {
-	
+
 	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
 	public MemberDao(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
+	
+	
 
 	// 결과가 1개 인 경우
 	public Member selectByEmail(String email) {
@@ -81,6 +84,18 @@ public class MemberDao {
 		};
 		jdbcTemplate.update(psc);
 
+	}
+
+	public List<Member> selectByRegdate(LocalDateTime from, LocalDateTime to) {
+		String sql = "SELECT ID, EMAIL, PASSWORD, NAME, REGDATE\r\n" + "  FROM MEMBER\r\n"
+				+ " WHERE REGDATE BETWEEN ? AND ?\r\n" + " ORDER BY REGDATE DESC";
+		return jdbcTemplate.query(sql, new MemberRowMapper(), from, to);
+	}
+
+	public Member selectById(Long memId) {
+		String sql = "SELECT * FROM MEMBER WHERE ID = ?";
+		List<Member> results = jdbcTemplate.query(sql, new MemberRowMapper(), memId);
+		return results.isEmpty() ? null : results.get(0);
 	}
 
 	/*private static long nextId = 0;

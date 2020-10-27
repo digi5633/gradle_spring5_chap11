@@ -12,11 +12,13 @@ public class MemberRowMapper implements RowMapper<Member> {
 
 	@Override
 	public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
+		
 		String email = rs.getString("EMAIL");
 		String password = rs.getString("PASSWORD");
 		String name = rs.getString("NAME");
 		LocalDateTime registerDateTime = rs.getTimestamp("REGDATE").toLocalDateTime();
 		Member member = new Member(email, password, name, registerDateTime);
+		
 		member.setId(rs.getLong("ID"));
 
 		return member;
