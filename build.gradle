@@ -68,5 +68,7 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator
 	compile group: 'org.hibernate.validator', name: 'hibernate-validator', version: '6.1.6.Final'
 	
-	
+	// JSON
+	// https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310
+	compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.11.3'
 }

@@ -4,11 +4,15 @@ import java.time.LocalDateTime;
 
 import gradle_spring5_chap11.exception.WrongIdPasswordException;
 
+// @JsonIgnoreProperties({ "password" })
 public class Member {
 	private Long id;
 	private String email;
+	// @JsonIgnore
 	private String password;
 	private String name;
+	// @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	// @JsonFormat(shape = Shape.STRING) // ISO-8601 형식으로 변환
 	private LocalDateTime registerDateTime;
 
 	public Member() {
